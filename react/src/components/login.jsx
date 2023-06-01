@@ -4,7 +4,7 @@ import Logo from "../assets/img/Logo.svg";
 import "../App.css";
 import "../styles/login.css";
 import Swal from "sweetalert2";
-import {axiosClient} from ".././axios-client";
+import axiosClient from ".././axios-client";
 import { useStateContext } from "../context/contextProvider";
 
 const Login = () => {
