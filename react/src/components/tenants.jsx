@@ -1,6 +1,5 @@
 import React from "react";
 import Nav from "./Nav";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import "../styles/tenants.css";
 import SearchIcon from "../assets/img/SearchIcon.svg";
@@ -11,23 +10,44 @@ import DeleteIconHover from "../assets/img/DeleteIconHover.svg";
 import CheckMark from "../assets/img/CheckMark.svg";
 import Footer from "./Footer";
 import tenantsData from "./tenantsData";
-import HoverableButton from "./HoverableButton";
+import { EditButton, DeleteButton } from "./Buttons";
+import EditModal from "./Modals";
+import CheckBoxLog from "./checkBox";
 
 const Tenant = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editTenant, setEditTenant] = useState(null); 
   const [tenants, setTenants] = useState(tenantsData);
-  const [selectedRowData, setSelectedRowData] = useState(null);
-
-  const handleEdit = (rowData) => {
-    setSelectedRowData(rowData);
-    setIsEditOpen(true);
-  };
+  const [showMissedPayment, setShowMissedPayment] = useState(false);
+  const [selectedTenant, setSelectedTenant] = useState(null);
 
   const handleDelete = (listings) => {
     const updatedTenants = tenants.filter(
       (tenant) => tenant.listings !== listings
     );
     setTenants(updatedTenants);
+  };
+
+  const handleCheckBoxChange = (value) => {
+    setShowMissedPayment(value);
+  };
+
+  const countMissedPaymentTenants = () => {
+    const missedPaymentTenants = tenants.filter((tenant) =>
+      tenant.status.includes("Missed Payment")
+    );
+    return missedPaymentTenants.length;
+  };
+
+  const handleEditClick = (tenant) => {
+    console.log("Editing Tenant:", tenant);
+    setEditTenant(tenant);
+    setIsEditOpen(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setIsEditOpen(false);
+    setEditTenant(null);
   };
 
   return (
@@ -40,14 +60,16 @@ const Tenant = () => {
               <h2 className="tenantsText">tenants</h2>
               <div className="form-check ms-3 mb-1">
                 <label className="d-flex align-items-center mb-0">
-                  <input
-                    type="checkbox"
-                    name="Checkbox square-checkbox"
-                    className="form-check-input mb-1"
+                  <CheckBoxLog
+                    checked={showMissedPayment}
+                    onChange={handleCheckBoxChange}
                   />
                   <p className="m-2 mb-0 tenantShow">
                     Show only tenants with missed payment{" "}
-                    <span className="filterMissedPayment">2</span>
+                    <span className="filterMissedPayment">
+                      {" "}
+                      {showMissedPayment ? countMissedPaymentTenants() : 0}
+                    </span>
                   </p>
                 </label>
               </div>
@@ -97,71 +119,85 @@ const Tenant = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tenants.map((tenant) => (
-                    <tr key={tenant.listings}>
-                      <td>
-                        <p className="lead name p1 h">{tenant.name}</p>
-                      </td>
-                      <td>
-                        <p className="lead listings1 p1 h">{tenant.listings}</p>
-                      </td>
-                      <td>
-                        <p
-                          className={`lead status p1 h ${
-                            tenant.status.includes("Missed Payment")
-                              ? "missed"
-                              : ""
-                          }`}
-                        >
-                          {tenant.status}
-                        </p>
-                      </td>
-                      <td>
-                        <p className="lead email p1 h email1">{tenant.email}</p>
-                      </td>
-                      <td>
-                        <p className="lead phone p1 h">{tenant.phone}</p>
-                      </td>
-                      <td>
-                        <p className="lead contract p1 h">{tenant.contract}</p>
-                      </td>
-                      <td>
-                        {tenant.backgroundCheck === "check" ? (
-                          <img
-                            className="checkMark"
-                            src={CheckMark}
-                            alt="CheckMark"
+                  {tenants.map((tenant) => {
+                    if (
+                      showMissedPayment &&
+                      !tenant.status.includes("Missed Payment")
+                    ) {
+                      return null; // Si showMissedPayment es true y no hay Missed Payment, no se muestra la fila
+                    }
+                    return (
+                      <tr key={tenant.listings}>
+                        <td>
+                          <p className="lead name p1 h">{tenant.name}</p>
+                        </td>
+                        <td>
+                          <p className="lead listings1 p1 h">
+                            {tenant.listings}
+                          </p>
+                        </td>
+                        <td>
+                          <p
+                            className={`lead status p1 h ${
+                              tenant.status.includes("Missed Payment")
+                                ? "missed"
+                                : ""
+                            }`}
+                          >
+                            {tenant.status}
+                          </p>
+                        </td>
+                        <td>
+                          <p className="lead email p1 h email1">
+                            {tenant.email}
+                          </p>
+                        </td>
+                        <td>
+                          <p className="lead phone p1 h">{tenant.phone}</p>
+                        </td>
+                        <td>
+                          <p className="lead contract p1 h">
+                            {tenant.contract}
+                          </p>
+                        </td>
+                        <td>
+                          {tenant.backgroundCheck === "check" ? (
+                            <img
+                              className="checkMark"
+                              src={CheckMark}
+                              alt="CheckMark"
+                            />
+                          ) : null}
+                        </td>
+                        <td>
+                          <EditButton
+                            defaultImage={<img src={Edit} alt="Edit" />}
+                            hoverImage={<img src={EditHover} alt="EditHover" />}
+                            onClick={() => handleEditClick(tenant)}
                           />
-                        ) : null}
-                      </td>
-
-                      <td>
-      <HoverableButton
-        defaultImage={<img src={Edit} alt="Edit" />}
-        hoverImage={<img src={EditHover} alt="EditHover" />}
-        onClick={() => handleEdit(tenant)}
-      />
-      <HoverableButton 
-        className={`delete ms-2 deleteButton`}
-        defaultImage={<img src={Delete} alt="Delete" />}
-        hoverImage={<img src={DeleteIconHover} alt="DeleteIconHover" />}
-        onClick={() => handleDelete(tenant.listings)}
-      />
-    </td>
-                    </tr>
-                  ))}
+                          <DeleteButton
+                            className="delete"
+                            defaultImage={<img src={Delete} alt="Delete" />}
+                            hoverImage={
+                              <img
+                                src={DeleteIconHover}
+                                alt="DeleteIconHover"
+                              />
+                            }
+                            onClick={() => handleDelete(tenant.listings)}
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Componente de edición */}
       {isEditOpen && (
-        <div className="edit-component">
-          <h3>Edit Component</h3>
-        </div>
+        <EditModal tenant={editTenant} onClose={handleCloseEditModal} />
       )}
       <Footer />
     </>

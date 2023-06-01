@@ -1,11 +1,9 @@
 .footer {
-  position: absolute;
   font-family: "proxima-nova", sans-serif;
   text-transform: uppercase;
   color: rgba(128, 128, 128, 0.656);
   margin-top: 2rem;
   font-size: 1rem;
-  bottom: 0;
 }
 .button-container {
   margin-top: -0.1rem;

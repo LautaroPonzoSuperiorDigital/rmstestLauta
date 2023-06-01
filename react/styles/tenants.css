@@ -83,35 +83,13 @@ button {
 .missed {
   color: red;
 }
+
+
 .hoverableButton {
 margin-left: 20px;
-position: inherit;
-width: 20%;
 }
 
 .imageContainer {
   display: inline-block;
   vertical-align: middle;
 }
-.confirmationBox{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: -10rem;
-  margin-top: -3rem;
-  width: 10rem;
-  white-space: nowrap;
-  background-color: #31AF9A;
-  font-family: "proxima-nova", sans-serif;
-  color: white;
-  height: 2rem;
-}
-.edit-component{
-  background-color: green;
-  width: 100%;
-  height: 100%;
-}
-
-
-
-

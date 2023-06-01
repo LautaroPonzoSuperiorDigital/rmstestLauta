@@ -1,0 +1,70 @@
+.modalWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.09);
+    backdrop-filter: blur(10px);
+}
+
+.modalContent {
+    background-color: white;
+    height: 60%;
+    width: 40%;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en los bordes */
+}
+.form-control {
+    width: 100%;
+}
+.tenant {
+    font-size: 35px;
+    margin-right: 42%;
+    margin-top: 7%;
+}
+
+.modalForm {
+    color: #000000a5;
+    text-transform: uppercase;
+    border: none;
+    border-top: none;
+    outline: none;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.449);
+    opacity: 1;
+    width: 65%;
+    font-size: 100%;
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
+.modalButton {
+    margin: 6rem;
+    margin-right: 1rem;
+}
+.save {
+    background-color: #197572;
+    color: white;
+    width: 250px;
+    height: 39px;
+}
+.save:hover {
+    background-color: #31af9a;
+}
+.close {
+    margin-left: 95%;
+    margin-top: -2%;
+    cursor: pointer;
+}
+.close:hover {
+    color: #31af9a;
+}
+.cancel {
+  color: #197572;
+  text-decoration: underline;
+}
+.cancel:hover {
+  color: #31af9a;
+}
