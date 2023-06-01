@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import { createContext, useContext, useState } from "react";
 
 const StateContext = createContext({
   currentUser: null,
@@ -6,43 +6,45 @@ const StateContext = createContext({
   notification: null,
   setUser: () => {},
   setToken: () => {},
-  setNotification: () => {}
-})
+  setNotification: () => {},
+});
 
-export const ContextProvider = ({children}) => {
+export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
-  const [notification, _setNotification] = useState('');
+  const [token, setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
+  const [notification, setNotification] = useState("");
 
-  const setToken = (token) => {
-    _setToken(token)
-    if (token) {
-      localStorage.setItem('ACCESS_TOKEN', token);
+  const updateToken = (newToken) => {
+    setToken(newToken);
+    if (newToken) {
+      localStorage.setItem("ACCESS_TOKEN", newToken);
     } else {
-      localStorage.removeItem('ACCESS_TOKEN');
+      localStorage.removeItem("ACCESS_TOKEN");
     }
-  }
+  };
 
-  const setNotification = message => {
-    _setNotification(message);
+  const updateNotification = (message) => {
+    setNotification(message);
 
     setTimeout(() => {
-      _setNotification('')
-    }, 5000)
-  }
+      setNotification("");
+    }, 5000);
+  };
 
   return (
-    <StateContext.Provider value={{
-      user,
-      setUser,
-      token,
-      setToken,
-      notification,
-      setNotification
-    }}>
+    <StateContext.Provider
+      value={{
+        user,
+        setUser,
+        token,
+        setToken: updateToken,
+        notification,
+        setNotification: updateNotification,
+      }}
+    >
       {children}
     </StateContext.Provider>
   );
-}
+};
 
 export const useStateContext = () => useContext(StateContext);

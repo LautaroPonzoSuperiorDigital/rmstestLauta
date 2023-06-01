@@ -2,12 +2,12 @@ import axios from "axios";
 import { useStateContext } from "./context/contextProvider";
 
 const axiosClient = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
 });
 
 axiosClient.interceptors.request.use((config) => {
   const { state } = useStateContext();
-  const token = localStorage.getItem("ACCESS_TOKEN");
+  const token = state.token;
   config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
@@ -22,10 +22,15 @@ axiosClient.interceptors.response.use(
       localStorage.removeItem("ACCESS_TOKEN");
       window.location.href = "/";
     } else if (response.status === 404) {
+      // Handle not found
     }
 
-    throw error;
+    // Remove the throw statement here
+
+    // Return the error to continue the promise chain
+    return Promise.reject(error);
   }
 );
 
 export default axiosClient;
+

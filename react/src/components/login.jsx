@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/img/Logo.svg";
 import "../App.css";
 import "../styles/login.css";
 import Swal from "sweetalert2";
-import axiosClient from ".././axios-client";
+import axiosClient from "../axios-client";
 import { useStateContext } from "../context/contextProvider";
 
 const Login = () => {
@@ -12,14 +12,18 @@ const Login = () => {
   const { setUser, setToken } = useStateContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = () => {
     if (
       validateEmail(email) &&
       email === "rms@admin.com" &&
-      password === "admin123"
+      password === "admin"
     ) {
+      const payload = {
+        email: email,
+        password: password,
+      };
+
       axiosClient
         .post("/", payload)
         .then(({ data }) => {
