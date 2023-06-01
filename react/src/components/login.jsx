@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/img/Logo.svg";
 import "../App.css";
 import "../styles/login.css";
 import Swal from "sweetalert2";
+import {axiosClient} from ".././axios-client";
+import { useStateContext } from "../context/contextProvider";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const { setUser, setToken } = useStateContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -18,9 +20,19 @@ const Login = () => {
       email === "rms@admin.com" &&
       password === "admin123"
     ) {
-      // Auth success
-      setLoggedIn(true);
-      navigate("/listingsAdmin");
+      axiosClient
+        .post("/", payload)
+        .then(({ data }) => {
+          setUser(email);
+          setToken("TOKEN_VALUE");
+          navigate("/listingsAdmin");
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Invalid Credentials",
+          });
+        });
     } else {
       // Auth failed
       Swal.fire({
