@@ -14,36 +14,24 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    if (
-      validateEmail(email) &&
-      email === "rms@admin.com" &&
-      password === "admin"
-    ) {
-      const payload = {
-        email: email,
-        password: password,
-      };
+    const payload = {
+      email: email,
+      password: password,
+    };
 
-      axiosClient
-        .post("http:localhost:8000/api/login", payload)
-        .then(({ data }) => {
-          setUser(email);
-          setToken("TOKEN_VALUE");
-          navigate("/listingsAdmin");
-        })
-        .catch((error) => {
-          Swal.fire({
-            icon: "error",
-            title: "Invalid Credentials",
-          });
+    axiosClient
+      .post("http:localhost:8000/api/login", payload)
+      .then(({ data }) => {
+        setUser(email);
+        setToken("TOKEN_VALUE");
+        navigate("/listingsAdmin");
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Invalid Credentials",
         });
-    } else {
-      // Auth failed
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Credentials",
       });
-    }
   };
 
   const validateEmail = (email) => {
@@ -75,8 +63,8 @@ const Login = () => {
             Forgot password?
           </a>
           <button className="button" onClick={(e) => { e.preventDefault(); handleLogin(); }}>
-  Log In
-</button>
+            Log In
+          </button>
         </div>
       </div>
     </div>

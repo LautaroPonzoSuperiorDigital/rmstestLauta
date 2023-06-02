@@ -1,9 +1,8 @@
 import axios from "axios";
-import axiosClient from "./axios-client";
 
 const fetchListings = () => {
-  return axiosClient
-    .get("/listingAdmin")
+  return axios
+    .get("http://localhost:8000/api/show-listings")
     .then((response) => {
       // Manejar la respuesta del backend aquí
       const listings = response.data;

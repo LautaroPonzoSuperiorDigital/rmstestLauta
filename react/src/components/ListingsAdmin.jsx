@@ -19,7 +19,8 @@ const ListingsAdmin = () => {
   useEffect(() => {
     fetchListings()
       .then((data) => {
-        setListings(data);
+        console.log(data);
+        setListings(data.listings);
       })
       .catch((error) => {
         console.error(error);
@@ -82,8 +83,8 @@ const ListingsAdmin = () => {
                       </td>
                       <td>{listing.id}</td>
                       <td>{listing.location}</td>
-                      <td>{listing.lotSize}</td>
-                      <td>{listing.houseSize}</td>
+                      <td>{listing.lot_size}</td>
+                      <td>{listing.house_size}</td>
                       <td>{listing.price}</td>
                       <td>{listing.public}</td>
                       <td>
