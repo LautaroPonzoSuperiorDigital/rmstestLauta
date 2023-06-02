@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const fetchListings = () => {
+  
   return axios
     .get("http://localhost:8000/api/show-listings")
     .then((response) => {

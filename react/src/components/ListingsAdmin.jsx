@@ -25,6 +25,7 @@ const ListingsAdmin = () => {
       .catch((error) => {
         console.error(error);
       });
+      
   }, []);
   return (
     <>
