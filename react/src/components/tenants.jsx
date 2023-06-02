@@ -2,24 +2,38 @@ import React from "react";
 import Nav from "./Nav";
 import { useState } from "react";
 import "../styles/tenants.css";
-import SearchIcon from "../assets/img/SearchIcon.svg";
 import Edit from "../assets/img/Edit.svg";
 import EditHover from "../assets/img/EditHover.svg";
 import Delete from "../assets/img/Delete.svg";
 import DeleteIconHover from "../assets/img/DeleteIconHover.svg";
 import CheckMark from "../assets/img/CheckMark.svg";
-import Footer from "./Footer";
 import tenantsData from "./tenantsData";
 import { EditButton, DeleteButton } from "./Buttons";
 import EditModal from "./Modals";
 import CheckBoxLog from "./checkBox";
+import Search from "./Search";
+import Pagination from "./Paginations";
+
+const PAGE_SIZE = 10;
 
 const Tenant = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [editTenant, setEditTenant] = useState(null); 
-  const [tenants, setTenants] = useState(tenantsData);
+  const [editTenant, setEditTenant] = useState(null);
+  const [tenants, setTenants] = useState(tenantsData); // Asegúrate de tener la definición de tenantsData
   const [showMissedPayment, setShowMissedPayment] = useState(false);
   const [selectedTenant, setSelectedTenant] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const PAGE_SIZE = 10;
+  const totalTenants = tenants.length;
+  const totalPages = Math.ceil(totalTenants / PAGE_SIZE);
+  const tenantsPerPage = tenants.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   const handleDelete = (listings) => {
     const updatedTenants = tenants.filter(
@@ -37,6 +51,10 @@ const Tenant = () => {
       tenant.status.includes("Missed Payment")
     );
     return missedPaymentTenants.length;
+  };
+
+  const handleSearch = (searchResults) => {
+    setTenants(searchResults);
   };
 
   const handleEditClick = (tenant) => {
@@ -75,16 +93,7 @@ const Tenant = () => {
               </div>
             </div>
           </div>
-          <div className="search-container d-flex align-items-center justify-content-end mt-4">
-            <input
-              type="text"
-              className="form-control form-control-sm"
-              placeholder="Search"
-              aria-label="Search"
-              aria-describedby="button-addon2"
-            />
-            <img className="SearchIcon" src={SearchIcon} alt="SearchIcon" />
-          </div>
+          <Search onSearch={handleSearch} tenantsData={tenantsData} />
         </div>
         <div className="container-fluid tenants d-flex justify-content-start">
           <div className="row container-fluid">
@@ -119,12 +128,12 @@ const Tenant = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tenants.map((tenant) => {
+                  {tenantsPerPage.map((tenant) => {
                     if (
                       showMissedPayment &&
                       !tenant.status.includes("Missed Payment")
                     ) {
-                      return null; // Si showMissedPayment es true y no hay Missed Payment, no se muestra la fila
+                      return null;
                     }
                     return (
                       <tr key={tenant.listings}>
@@ -199,7 +208,12 @@ const Tenant = () => {
       {isEditOpen && (
         <EditModal tenant={editTenant} onClose={handleCloseEditModal} />
       )}
-      <Footer />
+      <Pagination
+  currentPage={currentPage}
+  totalPages={totalPages}
+  totalEntries={totalTenants} 
+  onPageChange={handlePageChange}
+/>
     </>
   );
 };

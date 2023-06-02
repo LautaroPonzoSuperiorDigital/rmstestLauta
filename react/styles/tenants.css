@@ -93,3 +93,10 @@ margin-left: 20px;
   display: inline-block;
   vertical-align: middle;
 }
+table {
+  width: 100%;
+}
+.testImg {
+  width: 1%;
+  height: auto;
+}

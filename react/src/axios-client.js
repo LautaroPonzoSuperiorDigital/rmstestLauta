@@ -22,15 +22,10 @@ axiosClient.interceptors.response.use(
       localStorage.removeItem("ACCESS_TOKEN");
       window.location.href = "/";
     } else if (response.status === 404) {
-      // Handle not found
     }
 
-    // Remove the throw statement here
-
-    // Return the error to continue the promise chain
     return Promise.reject(error);
   }
 );
 
 export default axiosClient;
-

@@ -4,7 +4,7 @@ import Logo from "../assets/img/Logo.svg";
 import "../App.css";
 import "../styles/login.css";
 import Swal from "sweetalert2";
-import axiosClient from "../axios-client";
+import axios from "axios"
 import { useStateContext } from "../context/contextProvider";
 
 const Login = () => {
@@ -25,7 +25,7 @@ const Login = () => {
       };
 
       axiosClient
-        .post("/", payload)
+        .post("http:localhost:8000/api/login", payload)
         .then(({ data }) => {
           setUser(email);
           setToken("TOKEN_VALUE");
@@ -74,9 +74,9 @@ const Login = () => {
           <a href="forgotPassword" className="forgot">
             Forgot password?
           </a>
-          <button className="button" onClick={handleLogin}>
-            Log In
-          </button>
+          <button className="button" onClick={(e) => { e.preventDefault(); handleLogin(); }}>
+  Log In
+</button>
         </div>
       </div>
     </div>

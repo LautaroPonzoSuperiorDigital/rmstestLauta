@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/login";
 import Tenant from "./components/Tenants";
-import Listings from "./components/Listings";
+import ListingsAdmin from "./components/ListingsAdmin";
 import Applicants from "./components/Applicants";
 import Chats from "./components/Chats";
 import Documents from "./components/Documents";
@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="listingsAdmin" element={<Listings />} />
+        <Route path="listingsAdmin" element={<ListingsAdmin />} />
         <Route path="tenantsAdmin" element={<Tenant />} />
         <Route path="applicantsAdmin" element={<Applicants />} />
         <Route path="chatsAdmin" element={<Chats />} />
