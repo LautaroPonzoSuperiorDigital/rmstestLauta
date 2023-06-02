@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import CheckBoxLog from "./checkBox";
 import Search from "./Search";
@@ -11,7 +11,6 @@ import Edit from "../assets/img/Edit.svg";
 import EditHover from "../assets/img/EditHover.svg";
 import Delete from "../assets/img/Delete.svg";
 import DeleteIconHover from "../assets/img/DeleteIconHover.svg";
-import axios from "axios";
 import fetchListings from "../fetch";
 
 const ListingsAdmin = () => {

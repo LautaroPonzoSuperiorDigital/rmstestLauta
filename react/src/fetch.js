@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const fetchListings = () => {
     axios
       .get("/api/show-listings")
