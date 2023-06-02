@@ -14,8 +14,16 @@ import DeleteIconHover from "../assets/img/DeleteIconHover.svg";
 import fetchListings from "../fetch";
 
 const ListingsAdmin = () => {
+  const [listings, setListings] = useState([]);
+
   useEffect(() => {
-    fetchListings(); 
+    fetchListings()
+      .then((data) => {
+        setListings(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
   return (
     <>
@@ -67,8 +75,8 @@ const ListingsAdmin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {listings.map((listing, index) => (
-                    <tr key={index}>
+                {listings.map(listing => (
+                    <tr key={listing.id}>
                       <td>
                         <img className="testImg" src={testImg} alt="testImg" />
                       </td>
