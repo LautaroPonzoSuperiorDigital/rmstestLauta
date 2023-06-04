@@ -27,7 +27,7 @@ li {
 .chat::after {
   content: "";
   position: absolute;
-  bottom: -44%;
+  bottom: -37%;
   left: 0;
   width: fit-content;
   height: 2px;
@@ -52,7 +52,7 @@ li {
 .custom-item::after {
   content: "";
   position: absolute;
-  bottom: -44%;
+  bottom: -37%;
   left: 0;
   width: fit-content;
   height: 2px;

@@ -1,5 +1,5 @@
 .modalWrapper {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -16,7 +16,7 @@
     height: 60%;
     width: 40%;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en los bordes */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .form-control {
     width: 100%;
@@ -29,7 +29,6 @@
 
 .modalForm {
     color: #000000a5;
-    text-transform: uppercase;
     border: none;
     border-top: none;
     outline: none;
@@ -54,17 +53,21 @@
     background-color: #31af9a;
 }
 .close {
-    margin-left: 95%;
-    margin-top: -2%;
+    margin-left: 96%;
+    margin-top: 1%;
     cursor: pointer;
 }
 .close:hover {
     color: #31af9a;
 }
 .cancel {
-  color: #197572;
-  text-decoration: underline;
+    color: #197572;
+    text-decoration: underline;
 }
 .cancel:hover {
-  color: #31af9a;
+    color: #31af9a;
+}
+.eyeIcon {
+    margin-top: -2.7rem;
+    margin-left: 28rem;
 }

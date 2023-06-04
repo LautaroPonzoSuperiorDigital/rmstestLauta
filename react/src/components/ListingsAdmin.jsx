@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import CheckBoxLog from "./checkBox";
-import Search from "./Search";
+import SearchListings from "./Search";
 import listings from "./ListingsData";
 import testImg from "../assets/img/testImg.svg";
-import CheckMark from "../assets/img/CheckMark.svg";
+import CheckMarkListing from "../assets/img/CheckMark.svg";
 import "../styles/tenants.css";
 import { EditButton, DeleteButton } from "./Buttons";
 import Edit from "../assets/img/Edit.svg";
@@ -14,19 +14,11 @@ import DeleteIconHover from "../assets/img/DeleteIconHover.svg";
 import fetchListings from "../fetch";
 
 const ListingsAdmin = () => {
-  const [listings, setListings] = useState([]);
-
-  useEffect(() => {
-    fetchListings()
-      .then((data) => {
-        console.log(data);
-        setListings(data.listings);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-      
-  }, []);
+  const toggleDropdown = () => {
+    const dropdown = document.getElementById("dropdown");
+    dropdown.style.display =
+      dropdown.style.display === "none" ? "block" : "none";
+  };
   return (
     <>
       <Nav />
@@ -45,7 +37,30 @@ const ListingsAdmin = () => {
               </div>
             </div>
           </div>
-          <Search />
+          <SearchListings />
+          <div className="ListingContainer">
+            <button className="mt-4 ms-4" onClick={toggleDropdown}>
+              Price
+            </button>
+            <div id="dropdown" style={{ display: "none" }}>
+              <select id="priceSelect">
+                <option value="1000">Min $1,000</option>
+                <option value="5000">Max $5,000</option>
+              </select>
+            </div>
+            <button className="mt-4 ms-4" onClick={toggleDropdown}>
+              Sq. Ft.
+            </button>
+            <div id="dropdown" style={{ display: "none" }}>
+              <select id="priceSelect">
+                <option value="1000">Min $1,000</option>
+                <option value="5000">Max $5,000</option>
+              </select>
+            </div>
+            <button className="mt-4 ms-4 AddListing" onClick={toggleDropdown}>
+              <span>+</span> Add Listing
+            </button>
+          </div>
         </div>
         <div className="container-fluid listings d-flex justify-content-center align-items-center">
           <div className="row container-fluid">
@@ -54,67 +69,63 @@ const ListingsAdmin = () => {
                 <thead>
                   <tr>
                     <td>
-                      <p className="lead listings1 p1 p2">ID</p>
+                      <p className="ms-5 id td p1">ID</p>
                     </td>
                     <td>
-                      <p className="lead status p1 p2">LOCATION</p>
+                      <p className="location td p1">LOCATION</p>
                     </td>
                     <td>
-                      <p className="lead email p1 p2">LOT SIZE</p>
+                      <p className="lotSize td p1">LOT SIZE</p>
                     </td>
                     <td>
-                      <p className="lead phone p1 p2">HOUSE SIZE</p>
+                      <p className="houseSize td p1">HOUSE SIZE</p>
                     </td>
                     <td>
-                      <p className="lead contract p1 p2">PRICE</p>
+                      <p className="price td p1">PRICE</p>
+                    </td>
+                    <td></td>
+                    <td>
+                      <p className="public td p1">PUBLIC</p>
                     </td>
                     <td>
-                      <p className="lead bgcheck p1 p2">PUBLIC</p>
-                    </td>
-                    <td>
-                      <p className="lead actions p1 p2">ACTIONS</p>
+                      <p className="actions td p1">ACTIONS</p>
                     </td>
                   </tr>
                 </thead>
                 <tbody>
-                {listings.map(listing => (
+                  {listings.map((listing) => (
                     <tr key={listing.id}>
                       <td>
                         <img className="testImg" src={testImg} alt="testImg" />
+                        {listing.id}
                       </td>
-                      <td>{listing.id}</td>
-                      <td>{listing.location}</td>
-                      <td>{listing.lot_size}</td>
-                      <td>{listing.house_size}</td>
-                      <td>{listing.price}</td>
-                      <td>{listing.public}</td>
-                      <td>
-                        {listing.actions && (
+                      <td className="h p1"> <p className=" td td2"></p> {listing.location}</td>
+                      <td className="h p1"> <p className=" td td2"></p> {listing.lotSize}</td>
+                      <td className="h p1"> <p className=" td td2"></p> {listing.houseSize}</td>
+                      <td className="h p1"> <p className=" td td2"></p> {listing.price}</td>
+                      <td className="h p1"> <p className=" td td2"></p> </td>
+                      <td className="h p1"> <p className=" td td2"></p> 
+                        {listing.public && (
                           <img
-                            className="checkMark"
-                            src={CheckMark}
+                            className="checkMarkListing"
+                            src={CheckMarkListing}
                             alt="CheckMark"
                           />
                         )}
                       </td>
                       <td>
-                        <td>
-                          <EditButton
-                            defaultImage={<img src={Edit} alt="Edit" />}
-                            hoverImage={<img src={EditHover} alt="EditHover" />}
-                            onClick={() => handleEditClick(tenant)}
-                          />
-                          <DeleteButton
-                            className="delete"
-                            defaultImage={<img src={Delete} alt="Delete" />}
-                            hoverImage={
-                              <img
-                                src={DeleteIconHover}
-                                alt="DeleteIconHover"
-                              />
-                            }
-                          />
-                        </td>
+                        <EditButton
+                          defaultImage={<img src={Edit} alt="Edit" />}
+                          hoverImage={<img src={EditHover} alt="EditHover" />}
+                          onClick={() => handleEditClick(tenant)}
+                        />
+                        <DeleteButton
+                          className="delete"
+                          defaultImage={<img src={Delete} alt="Delete" />}
+                          hoverImage={
+                            <img src={DeleteIconHover} alt="DeleteIconHover" />
+                          }
+                        />
                       </td>
                     </tr>
                   ))}

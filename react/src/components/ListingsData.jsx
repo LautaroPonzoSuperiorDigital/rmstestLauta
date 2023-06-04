@@ -2,14 +2,13 @@ import testImg from "../assets/img/testImg.svg";
 import CheckMark from "../assets/img/CheckMark.svg";
 const ListingsData = [
   {
-    image: <img className="testImg" src={testImg}/>,
+    image: <img className="testImg" src={testImg} />,
     id: "46780",
     location: "180 Niblick Rd, Paso Robles, Ca 93446",
     lotSize: "13,608 Sq. Ft. Per County",
     houseSize: "3,435 Sq. Ft. Per County",
     price: "$6,500/mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: null,
+    public: null,
   },
   {
     image: <img className="testImg" src={testImg} alt="CheckMark" />,
@@ -18,8 +17,7 @@ const ListingsData = [
     lotSize: "9,355 Sq. Ft. Per County",
     houseSize: "3,435 Sq. Ft. Per County",
     price: "$5,500/mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
+    public: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
   },
   {
     image: <img className="testImg" src={testImg} alt="CheckMark" />,
@@ -28,8 +26,7 @@ const ListingsData = [
     lotSize: "8,252 Sq. Ft. Per County",
     houseSize: "2,355 Sq. Ft. Per County",
     price: "$ 5,700 / mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: null,
+    public: null,
   },
   {
     image: <img className="testImg" src={testImg} alt="CheckMark" />,
@@ -38,8 +35,7 @@ const ListingsData = [
     lotSize: "12,498 Sq. Ft. Per County",
     houseSize: "2,965 Sq. Ft. Per County",
     price: "$ 6,000 / mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
+    public: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
   },
   {
     image: <img className="testImg" src={testImg} alt="CheckMark" />,
@@ -48,8 +44,7 @@ const ListingsData = [
     lotSize: "15,464 Sq. Ft. Per County",
     houseSize: "4,754 Sq. Ft. Per County",
     price: "$ 5,200 / mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
+    public: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
   },
   {
     image: <img className="testImg" src={testImg} alt="CheckMark" />,
@@ -58,8 +53,7 @@ const ListingsData = [
     lotSize: "11,937 Sq. Ft. Per County",
     houseSize: "3,608 Sq. Ft. Per County",
     price: "$ 4,700 / mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: null,
+    public: null,
   },
   {
     image: <img className="testImg" src={testImg} alt="CheckMark" />,
@@ -68,8 +62,7 @@ const ListingsData = [
     lotSize: "13,608 Sq. Ft. Per County",
     houseSize: "3,435 Sq. Ft. Per County",
     price: "$6,500/mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
+    public: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
   },
   {
     image: <img className="testImg" src={testImg} alt="CheckMark" />,
@@ -78,8 +71,7 @@ const ListingsData = [
     lotSize: "10,428 Sq. Ft. Per County",
     houseSize: "4,461 Sq. Ft. Per County",
     price: "$ 7,900 / mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
+    public: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
   },
   {
     image: <img className="testImg" src={testImg} alt="CheckMark" />,
@@ -88,8 +80,7 @@ const ListingsData = [
     lotSize: "5,358 Sq. Ft. Per County",
     houseSize: "2,156 Sq. Ft. Per County",
     price: "$ 5,900 / mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
+    public: <img className="checkMark" src={CheckMark} alt="CheckMark" />,
   },
   {
     image: <img className="testImg" src={testImg} alt="CheckMark" />,
@@ -98,8 +89,7 @@ const ListingsData = [
     lotSize: "9,026 Sq. Ft. Per County",
     houseSize: "2,247 Sq. Ft. Per County",
     price: "$ 4,500 / mo",
-    public: "Mar 12, 2022 - Mar 12, 2023",
-    actions: null,
+    public: null,
   },
 ];
 

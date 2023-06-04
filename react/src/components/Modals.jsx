@@ -1,90 +1,102 @@
 import React, { useState } from "react";
 import "../styles/modal.css";
 import Close from "../assets/img/Close.svg";
+import CloseHover from "../assets/img/CloseHover.svg";
 import Eye from "../assets/img/Eye.svg";
 
-const EditModal = ({ defaultImage, hoverImage, onClick, index, tenant }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isDeletingHovered, setIsDeletingHovered] = useState(false);
+const EditModal = ({ onSave, onClose, tenant }) => {
+  const [isCloseHovered, setIsCloseHovered] = useState(false);
+  const [name, setName] = useState(tenant.name);
+  const [email, setEmail] = useState(tenant.email);
+  const [phone, setPhone] = useState(tenant.phone);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    setIsDeletingHovered(true);
+  const handleMouseEnterClose = () => {
+    setIsCloseHovered(true);
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setIsDeletingHovered(false);
+  const handleMouseLeaveClose = () => {
+    setIsCloseHovered(false);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    onClick();
+    const updatedTenant = {
+      ...tenant,
+      name: name,
+      email: email,
+      phone: phone,
+    };
+    onSave(updatedTenant);
+    onClose();
   };
 
   const handleCloseClick = () => {
-    window.location.href = window.location.href;
+    onClose();
   };
 
   const handleCancelClick = () => {
-    window.location.href = window.location.href;
+    onClose();
+  };
+
+  const handleSave = () => {
+    const updatedTenant = {
+      ...tenant,
+      name: name,
+      email: email,
+      phone: phone,
+    };
+
+    onSave(updatedTenant);
+    onClose();
   };
 
   return (
     <div className="modalWrapper">
       <div className="modalContent">
-        <button
-          className="hoverableButton editButton"
-          onClick={onClick}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <span className="imageContainer">
-            {isHovered ? hoverImage : defaultImage}
-          </span>
-          {isDeletingHovered && (
-            <div className="confirmationBox">Edit This Tenant</div>
-          )}
-        </button>
-
         <form
           className="editForm d-flex flex-column align-items-center"
           onSubmit={handleFormSubmit}
         >
           <img
-            src={Close}
+            src={isCloseHovered ? CloseHover : Close}
             alt="Close"
             className="close"
             onClick={handleCloseClick}
+            onMouseEnter={handleMouseEnterClose}
+            onMouseLeave={handleMouseLeaveClose}
           />
           <h2 className="tenant">Edit Tenant</h2>
           <input
             type="text"
             className="modalForm"
             id="name"
-            placeholder={`LEGAL NAME                                                             ${tenant.name}`}
-            onChange={(e) => {}}
+            placeholder={`LEGAL NAME                                                                ${tenant.name}`}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <input
             type="email"
             className="modalForm"
             id="email"
-            placeholder={`EMAIL                                                     ${tenant.email}`}
-            onChange={(e) => {}}
+            placeholder={`EMAIL                                                               ${tenant.email}`}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="text"
             className="modalForm"
             id="phone"
             placeholder={`PHONE                                                                         ${tenant.phone}`}
-            onChange={(e) => {}}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
           <input
             type="text"
-            className="modalForm"
+            className="modalForm inputWithIcon"
             id="SSNN"
-            placeholder="SSNN"
+            placeholder="SSNN                                                                                       ***"
           />
+          <img src={Eye} alt="Eye" className="eyeIcon" />
           <div className="buttonContainer">
             <button
               type="button"
@@ -93,7 +105,11 @@ const EditModal = ({ defaultImage, hoverImage, onClick, index, tenant }) => {
             >
               Cancel
             </button>
-            <button type="submit" className="modalButton save">
+            <button
+              type="button"
+              className="modalButton save"
+              onClick={handleSave} // Llamada a handleSave en lugar de onSave
+            >
               Save
             </button>
           </div>

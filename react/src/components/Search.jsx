@@ -66,7 +66,6 @@ function Search({ onSearch, tenantsData }) {
         onChange={handleChange}
       />
       <img className="SearchIcon" src={SearchIcon} alt="SearchIcon" />
-      <button onClick={handleSearch}></button>
     </div>
   );
 }

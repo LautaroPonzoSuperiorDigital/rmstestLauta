@@ -1,27 +1,6 @@
 import CheckMark from "../assets/img/CheckMark.svg";
+import "./Modals";
 import React from "react";
-
-const generateRandomTenant = () => {
-  const names = ["John Doe", "Jane Smith", "Mike Johnson", "Emily Brown", "David Wilson"];
-  const listings = Math.floor(Math.random() * 90000) + 10000;
-  const statuses = ["Paid Feb 1, 2023", "Missed Payment Feb 1, 2023"];
-  const emails = ["john.doe@example.com", "jane.smith@example.com", "mike.johnson@example.com"];
-  const phones = ["123-456-7890", "987-654-3210", "555-555-5555"];
-  const contracts = ["Jan 1, 2023 - Dec 31, 2023", "Feb 1, 2023 - Jan 31, 2024"];
-  const backgroundChecks = [null, "check"];
-  
-  const randomIndex = Math.floor(Math.random() * names.length);
-  
-  return {
-    name: names[randomIndex],
-    listings: listings,
-    status: statuses[randomIndex % statuses.length],
-    email: emails[randomIndex % emails.length],
-    phone: phones[randomIndex % phones.length],
-    contract: contracts[randomIndex % contracts.length],
-    backgroundCheck: backgroundChecks[randomIndex % backgroundChecks.length],
-  };
-};
 
 const tenantsData = [
   {
@@ -116,8 +95,6 @@ const tenantsData = [
       <img className="checkMark" src={CheckMark} alt="CheckMark" />
     ),
   },
-  // Generate 10 random tenants
-  ...Array.from({ length: 10 }, () => generateRandomTenant()),
 ];
 
 export default tenantsData;

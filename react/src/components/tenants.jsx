@@ -14,12 +14,10 @@ import CheckBoxLog from "./checkBox";
 import Search from "./Search";
 import Pagination from "./Paginations";
 
-const PAGE_SIZE = 10;
-
 const Tenant = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editTenant, setEditTenant] = useState(null);
-  const [tenants, setTenants] = useState(tenantsData); // Asegúrate de tener la definición de tenantsData
+  const [tenants, setTenants] = useState(tenantsData);
   const [showMissedPayment, setShowMissedPayment] = useState(false);
   const [selectedTenant, setSelectedTenant] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,10 +25,19 @@ const Tenant = () => {
   const PAGE_SIZE = 10;
   const totalTenants = tenants.length;
   const totalPages = Math.ceil(totalTenants / PAGE_SIZE);
-  const tenantsPerPage = tenants.slice(
+
+  const filteredTenants = showMissedPayment
+    ? tenants.filter((tenant) => tenant.status.includes("Missed Payment"))
+    : tenants;
+
+  const countMissedPaymentTenants = () =>
+    tenants.filter((tenant) => tenant.status.includes("Missed Payment")).length;
+
+  const tenantsPerPage = filteredTenants.slice(
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -46,13 +53,6 @@ const Tenant = () => {
     setShowMissedPayment(value);
   };
 
-  const countMissedPaymentTenants = () => {
-    const missedPaymentTenants = tenants.filter((tenant) =>
-      tenant.status.includes("Missed Payment")
-    );
-    return missedPaymentTenants.length;
-  };
-
   const handleSearch = (searchResults) => {
     setTenants(searchResults);
   };
@@ -66,6 +66,30 @@ const Tenant = () => {
   const handleCloseEditModal = () => {
     setIsEditOpen(false);
     setEditTenant(null);
+  };
+
+  const handleSave = (updatedTenant) => {
+    setTenants((prevTenants) => {
+      const updatedTenants = prevTenants.map((tenant) => {
+        if (tenant.listings === updatedTenant.listings) {
+          return updatedTenant;
+        }
+        return tenant;
+      });
+      return updatedTenants;
+    });
+    setIsEditOpen(false);
+    setEditTenant(null);
+  };
+  const handleSaveModal = (updatedTenant) => {
+    const updatedTenants = tenants.map((tenant) => {
+      if (tenant.listings === updatedTenant.listings) {
+        return updatedTenant;
+      }
+      return tenant;
+    });
+    setTenants(updatedTenants);
+    handleSaveTenant(updatedTenant);
   };
 
   return (
@@ -95,35 +119,35 @@ const Tenant = () => {
           </div>
           <Search onSearch={handleSearch} tenantsData={tenantsData} />
         </div>
-        <div className="container-fluid tenants d-flex justify-content-start">
+        <div className="container-fluid d-flex justify-content-start">
           <div className="row container-fluid">
             <div className="col table-container">
               <table className="table mt-4 w-100">
                 <thead>
                   <tr>
                     <td>
-                      <p className="lead name p1">NAME</p>
+                      <p className="lead name td p1">NAME</p>
                     </td>
                     <td>
-                      <p className="lead listings1 p1">LISTINGS</p>
+                      <p className="lead listings1 td p1">LISTINGS</p>
                     </td>
                     <td>
-                      <p className="lead status p1">PAYMENT STATUS</p>
+                      <p className="lead status td p1">PAYMENT STATUS</p>
                     </td>
                     <td>
-                      <p className="lead email p1">EMAIL</p>
+                      <p className="lead email td p1">EMAIL</p>
                     </td>
                     <td>
-                      <p className="lead phone p1">PHONE</p>
+                      <p className="lead phone td p1">PHONE</p>
                     </td>
                     <td>
-                      <p className="lead contract p1">CONTRACT DATES</p>
+                      <p className="lead contract td p1">CONTRACT DATES</p>
                     </td>
                     <td>
-                      <p className="lead bgcheck p1">BACKGROUND CHECK</p>
+                      <p className="lead bgcheck td p1">BACKGROUND CHECK</p>
                     </td>
                     <td>
-                      <p className="lead actions p1">ACTIONS</p>
+                      <p className="lead actions td p1">ACTIONS</p>
                     </td>
                   </tr>
                 </thead>
@@ -138,16 +162,14 @@ const Tenant = () => {
                     return (
                       <tr key={tenant.listings}>
                         <td>
-                          <p className="lead name p1 h">{tenant.name}</p>
+                          <p className="p1 h">{tenant.name}</p>
                         </td>
                         <td>
-                          <p className="lead listings1 p1 h">
-                            {tenant.listings}
-                          </p>
+                          <p className="p1 h">{tenant.listings}</p>
                         </td>
                         <td>
                           <p
-                            className={`lead status p1 h ${
+                            className={`p1 h ${
                               tenant.status.includes("Missed Payment")
                                 ? "missed"
                                 : ""
@@ -157,17 +179,13 @@ const Tenant = () => {
                           </p>
                         </td>
                         <td>
-                          <p className="lead email p1 h email1">
-                            {tenant.email}
-                          </p>
+                          <p className="p1 h">{tenant.email}</p>
                         </td>
                         <td>
-                          <p className="lead phone p1 h">{tenant.phone}</p>
+                          <p className="p1 h">{tenant.phone}</p>
                         </td>
                         <td>
-                          <p className="lead contract p1 h">
-                            {tenant.contract}
-                          </p>
+                          <p className="p1 h">{tenant.contract}</p>
                         </td>
                         <td>
                           {tenant.backgroundCheck === "check" ? (
@@ -206,14 +224,18 @@ const Tenant = () => {
         </div>
       </div>
       {isEditOpen && (
-        <EditModal tenant={editTenant} onClose={handleCloseEditModal} />
+        <EditModal
+          tenant={editTenant}
+          onSave={handleSave}
+          onClose={handleCloseEditModal}
+        />
       )}
       <Pagination
-  currentPage={currentPage}
-  totalPages={totalPages}
-  totalEntries={totalTenants} 
-  onPageChange={handlePageChange}
-/>
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalEntries={totalTenants}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };
