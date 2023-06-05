@@ -16,7 +16,7 @@ const tenantsData = [
     name: "Hamish Mago",
     listings: "57478",
     status: "Paid Feb 1, 2023",
-    email: "hamishmagogmail.com",
+    email: "hamishmago@gmail.com",
     phone: "310-480-6714",
     contract: "Dec 10, 2022 - Dec 10, 2024",
     backgroundCheck: "check",

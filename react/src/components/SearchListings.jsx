@@ -3,10 +3,10 @@ import "../styles/tenants.css";
 
 function SearchListings() {
   return (
-    <div className="search-container d-flex align-items-center justify-content-end mt-4 searchListings">
+    <div className="d-flex mt-4 searchListings">
       <input
         type="text"
-        className="form-control form-control-sm"
+        className="form-control form-control-sm searchListings"
         placeholder="Search"
         aria-label="Search"
         aria-describedby="button-addon2"

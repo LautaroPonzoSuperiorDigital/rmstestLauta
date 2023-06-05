@@ -25,7 +25,9 @@ export const EditButton = ({ defaultImage, hoverImage, onClick, index }) => {
       <span className="imageContainer">
         {isHovered ? hoverImage : defaultImage}
       </span>
-      {isDeletingHovered && <div className="confirmationBox">Edit This Tenant</div>}
+      {isDeletingHovered && (
+        <div className="confirmationBox">Edit This Listing</div>
+      )}
     </button>
   );
 };
@@ -55,7 +57,7 @@ export const DeleteButton = ({ defaultImage, hoverImage, onClick }) => {
         {isHovered ? hoverImage : defaultImage}
       </span>
       {isDeletingHovered && (
-        <div className="confirmationBox">Delete This Tenant</div>
+        <div className="confirmationBox">Delete This Listing</div>
       )}
     </button>
   );

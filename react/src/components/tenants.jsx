@@ -160,7 +160,7 @@ const Tenant = () => {
                       return null;
                     }
                     return (
-                      <tr key={tenant.listings}>
+                      <tr key={tenant.listings} className="trBg">
                         <td>
                           <p className="p1 h">{tenant.name}</p>
                         </td>
