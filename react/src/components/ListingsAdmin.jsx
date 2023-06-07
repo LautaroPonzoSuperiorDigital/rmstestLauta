@@ -15,7 +15,6 @@ import Pagination from "./Paginations";
 import AddListings from "./addListing";
 import fetchListings from "../fetch";
 import EditModalListings from "./modals/modalListing";
-import axios from "axios";
 
 const ListingsAdmin = () => {
   const [listings, setListings] = useState(listingsData);
@@ -30,11 +29,11 @@ const ListingsAdmin = () => {
   });
 
   const handleAddListing = () => {
-    setShowModal(true); // Mostrar el modal al hacer clic en "Add Listing"
+    setShowModal(true); 
   };
 
   const handleModalClose = () => {
-    setShowModal(false); // Ocultar el modal al cerrarlo
+    setShowModal(false); 
   };
   const PAGE_SIZE = 10;
   const totalListings = listings.length;
