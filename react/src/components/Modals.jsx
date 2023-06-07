@@ -71,15 +71,13 @@ const EditModal = ({ onSave, onClose, tenant }) => {
             className="modalForm"
             id="name"
             placeholder={`LEGAL NAME                                                                ${tenant.name}`}
-            value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <input
             type="email"
             className="modalForm"
             id="email"
-            placeholder={`EMAIL                                                               ${tenant.email}`}
-            value={email}
+            placeholder={`EMAIL                                                                ${tenant.email}`}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
@@ -87,7 +85,6 @@ const EditModal = ({ onSave, onClose, tenant }) => {
             className="modalForm"
             id="phone"
             placeholder={`PHONE                                                                         ${tenant.phone}`}
-            value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
           <input

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import SearchIcon from "../assets/img/SearchIcon.svg";
 import tenantsData from "./tenantsData";
 import "../styles/tenants.css";
-
 function Search({ onSearch, tenantsData }) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -58,7 +57,7 @@ function Search({ onSearch, tenantsData }) {
     <div className="search-container d-flex align-items-center justify-content-end mt-4">
       <input
         type="text"
-        className="form-control form-control-sm"
+        className="form-control form-control-sm search-input"
         placeholder="Search"
         aria-label="Search"
         aria-describedby="button-addon2"
@@ -66,6 +65,7 @@ function Search({ onSearch, tenantsData }) {
         onChange={handleChange}
       />
       <img className="SearchIcon" src={SearchIcon} alt="SearchIcon" />
+      <button className="squareButton"></button>
     </div>
   );
 }

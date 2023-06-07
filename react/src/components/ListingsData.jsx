@@ -1,4 +1,4 @@
-import testImg from "../assets/img/testImg.svg";
+import testImg from "../assets/img/testImg.jpg";
 import CheckMark from "../assets/img/CheckMark.svg";
 const ListingsData = [
   {

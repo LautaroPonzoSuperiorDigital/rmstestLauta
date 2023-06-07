@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import CheckBoxLog from "./checkBox";
-import SearchListings from "./Search";
+import SearchListings from "./SearchListings";
 import listingsData from "./ListingsData";
-import testImg from "../assets/img/testImg.svg";
+import testImg from "../assets/img/testImg.jpg";
 import CheckMarkListing from "../assets/img/CheckMark.svg";
 import "../styles/tenants.css";
 import { EditButton, DeleteButton } from "./ButtonsListings";
@@ -12,12 +12,30 @@ import EditHover from "../assets/img/EditHover.svg";
 import Delete from "../assets/img/Delete.svg";
 import DeleteIconHover from "../assets/img/DeleteIconHover.svg";
 import Pagination from "./Paginations";
+import AddListings from "./addListing";
+import fetchListings from "../fetch";
+import EditModalListings from "./modals/modalListing";
+import axios from "axios";
 
 const ListingsAdmin = () => {
   const [listings, setListings] = useState(listingsData);
   const [currentPage, setCurrentPage] = useState(1);
   const [showOnlyPublicListings, setShowOnlyPublicListings] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [newListing, setNewListing] = useState({
+    location: "",
+    lot_size: "",
+    house_size: "",
+    price: "",
+  });
 
+  const handleAddListing = () => {
+    setShowModal(true); // Mostrar el modal al hacer clic en "Add Listing"
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false); // Ocultar el modal al cerrarlo
+  };
   const PAGE_SIZE = 10;
   const totalListings = listings.length;
   const totalPages = Math.ceil(totalListings / PAGE_SIZE);
@@ -55,6 +73,15 @@ const ListingsAdmin = () => {
     ? listings.filter((listing) => listing.public)
     : listings;
 
+  useEffect(() => {
+    fetchListings()
+      .then((data) => {
+        setListings(data.listings);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   return (
     <>
       <Nav />
@@ -76,38 +103,9 @@ const ListingsAdmin = () => {
               </div>
             </div>
           </div>
-          <div className="container-fluid ListingContainer d-flex justify-content-end">
+          <div className="container-fluid ListingContainer d-flex justify-content-end bttonContainer">
             <SearchListings />
-            <button
-              className="mt-4 ms-4"
-              onClick={() => toggleDropdown("priceDropdown")}
-            >
-              Price
-            </button>
-            <div id="priceDropdown">
-              <select id="priceSelect">
-                <option value="1000">Min $1,000</option>
-                <option value="5000">Max $5,000</option>
-              </select>
-            </div>
-            <button
-              className="mt-4 ms-4 toggle"
-              onClick={() => toggleDropdown("sqftDropdown")}
-            >
-              Sq. Ft.
-            </button>
-            <div id="sqftDropdown">
-              <select id="sqftSelect">
-                <option value="1000">Min 1,000 sqft</option>
-                <option value="5000">Max 5,000 sqft</option>
-              </select>
-            </div>
-            <button
-              className="mt-4 ms-4 mr-5 AddListing"
-              onClick={() => toggleDropdown("addListingDropdown")}
-            >
-              <span>+</span> Add Listing
-            </button>
+            <AddListings onClick={handleAddListing} />
           </div>
         </div>
         <div className="container-fluid">
@@ -160,17 +158,33 @@ const ListingsAdmin = () => {
                       </td>
                       <td className="h p1 td td2">
                         <p className="alignText d-flex align-items-center">
-                          {listing.lotSize}
+                          {listing.lot_size
+                            ? listing.lot_size.toLocaleString("EN", {
+                                maximumFractionDigits: 0,
+                              })
+                            : ""}
+                          &nbsp;Sq. Ft. Per County
                         </p>
                       </td>
                       <td className="h p1 td td2">
                         <p className="alignText d-flex align-items-center">
-                          {listing.houseSize}
+                          {listing.house_size
+                            ? listing.house_size.toLocaleString("EN", {
+                                maximumFractionDigits: 0,
+                              })
+                            : ""}{" "}
+                          Sq. Ft. Per County
                         </p>
                       </td>
                       <td className="h p1 td td2">
                         <p className="alignText d-flex align-items-center">
-                          {listing.price}
+                          $
+                          {listing.price
+                            ? parseFloat(listing.price).toLocaleString("en", {
+                                useGrouping: true,
+                              })
+                            : ""}
+                          /mo
                         </p>
                       </td>
                       <td className="h p1 td td2"></td>
@@ -208,6 +222,11 @@ const ListingsAdmin = () => {
           </div>
         </div>
       </div>
+      {showModal && (
+        <EditModalListings onClose={handleModalClose}>
+          {/* Contenido del modal para agregar un nuevo listado */}
+        </EditModalListings>
+      )}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

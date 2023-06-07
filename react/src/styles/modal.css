@@ -1,3 +1,4 @@
+/* Tenants Modal */
 .modalWrapper {
     position: absolute;
     top: 0;
@@ -18,9 +19,11 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 .form-control {
     width: 100%;
 }
+
 .tenant {
     font-size: 35px;
     margin-right: 42%;
@@ -39,35 +42,187 @@
     margin-top: 2%;
     margin-bottom: 3%;
 }
+
 .modalButton {
     margin: 6rem;
     margin-right: 1rem;
 }
+
 .save {
     background-color: #197572;
     color: white;
     width: 250px;
     height: 39px;
 }
+
 .save:hover {
     background-color: #31af9a;
 }
+
 .close {
     margin-left: 96%;
     margin-top: 1%;
     cursor: pointer;
 }
+
 .close:hover {
     color: #31af9a;
 }
+
 .cancel {
     color: #197572;
     text-decoration: underline;
 }
+
 .cancel:hover {
     color: #31af9a;
 }
+
 .eyeIcon {
     margin-top: -2.7rem;
     margin-left: 28rem;
 }
+
+/* Tenants Modal */
+/* Listing Modal */
+.modalWrapper2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.09);
+    backdrop-filter: blur(10px);
+}
+
+.modalContent2 {
+    background-color: white;
+    height: 56%;
+    width: 90%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ModalImg {
+    width: 43%;
+    margin-left: 7%;
+    margin-right: 0;
+    margin-bottom: 12rem;
+}
+
+.inputContainerListing {
+    margin-left: -90%;
+    margin-top: 5.2rem;
+}
+
+.inputListing {
+    color: #000000a5;
+    border: none;
+    border-top: none;
+    outline: none;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.34);
+    opacity: 1;
+    width: 60%;
+    font-size: 100%;
+    margin-top: 2rem;
+    margin-right: -2rem;
+    background: transparent;
+}
+.inputListing2 {
+    color: #000000a5;
+    border: none;
+    border-top: none;
+    outline: none;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.34);
+    opacity: 1;
+    width: 100%;
+    font-size: 100%;
+    margin-top: 2rem;
+    margin-left: -8rem;
+    background: transparent;
+}
+.listingCheckbox {
+    font-family: "proxima-nova", sans-serif;
+    margin-top: 1.4rem;
+    margin-left: -3%;
+    font-size: 14px;
+    color: rgba(128, 128, 128, 1.00);
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+}
+
+.checkboxLabel {
+    margin-left: 4px;
+}
+
+.checkboxListing {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid black;
+    margin-left: 20px;
+}
+
+.checkboxListing:checked {
+    background-color: #197572;
+}
+
+.checkboxListing:checked::before {
+    content: "\2713";
+    display: block;
+    text-align: center;
+    line-height: 14px;
+    font-size: 13px;
+    color: #fff;
+}
+
+.checkboxListing:focus {
+    outline: none;
+    border-color: #197572;
+}
+
+.modalButton1 {
+    margin: 6rem;
+    margin-right: 1rem;
+}
+
+.saveListing {
+    background-color: #197572;
+    color: white;
+    width: 150px;
+    height: 39px;
+}
+
+.saveListing:hover {
+    background-color: #31af9a;
+}
+
+.closeListing {
+    margin-left: 96%;
+    margin-top: 1%;
+    cursor: pointer;
+}
+
+.cancelListing {
+    color: #197572;
+    text-decoration: underline;
+}
+
+.cancelListing:hover {
+    color: #31af9a;
+}
+.amentities{
+    color: rgba(128, 128, 128, 1.00);
+}
+
+li{
+    color: black;
+}
+/* Listing Modal */
