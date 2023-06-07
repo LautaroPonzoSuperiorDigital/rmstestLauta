@@ -165,8 +165,7 @@ class ListingController extends Controller
 
     public function showListings()
     {
-        $listings = Listing::where('status', 1)->select('id', 'location', 'lot_size', 'house_size', 'price', 'public')
-            ->get();
+        $listings = Listing::where('status', 1)->get();
 
         return response()->json(['listings' => $listings], 200);
     }
@@ -178,8 +177,7 @@ class ListingController extends Controller
     }
     public function showDeletedListings()
     {
-        $listings = Listing::where('status', 2)->select('id', 'location', 'lot_size', 'house_size', 'price', 'public', 'status')
-            ->get();
+        $listings = Listing::where('status', 2)->get();
 
         return response()->json(['listings' => $listings], 200);
     }
